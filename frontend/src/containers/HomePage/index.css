@@ -1,0 +1,46 @@
+
+
+.homePage {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+    background: linear-gradient(to right, #0e4163, #8e44ad);
+    background-size: cover;
+    background-position: center;
+    padding-top: 15vh;
+  }
+
+
+.topSurface {
+    display: flex;
+    height: 8rem;
+    justify-content: center;
+    align-items: center;
+    }
+
+.bottomSurface {
+    display: flex;
+    align-items: stretch;
+    
+    }
+
+    .cardLists {
+        display: flex;
+        flex-direction: column;
+    }
+
+ .selectProps {
+    display: flex;
+    flex-direction: column;
+ } 
+
+.biji {
+    min-height: 10vh;
+    background: linear-gradient(to right, #266a96, #8e44ad);
+}
+
+.EEtButton {
+    display: flex;
+    justify-content:space-around;
+}

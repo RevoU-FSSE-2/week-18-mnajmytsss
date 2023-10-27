@@ -1,0 +1,46 @@
+
+  section {
+    padding: 2rem;
+  }
+
+  .home {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    min-height: 100vh;
+    background: linear-gradient(to right, #0e4163, #8e44ad);
+    background-size: cover;
+    background-position: center;
+    padding-top: 3rem;
+  }
+  
+  .home .content {
+    max-width: 70rem;
+    padding: 6rem;
+  }
+  
+  .home .content h3 {
+    font-size: 5rem;
+    font-weight: normal;
+    color: #f6f6f6;
+  }
+  
+  .home .content span {
+    font-size: 3rem;
+    color: var(--pink);
+    padding: 1rem 0;
+    line-height: 1.5;
+  }
+
+  .home .content p {
+    font-size: 2.5rem;
+    color: #f6f6f6;
+    padding: 1rem 0;
+    line-height: 1.5;
+  }
+
+  .trelloImage {
+    height: 67rem;
+    margin-top: 10rem;
+  }
