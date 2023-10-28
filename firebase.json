@@ -1,0 +1,36 @@
+{
+  "functions": [
+    {
+      "source": "backend",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log"
+      ],
+      "runtime": "nodejs18"
+    }
+  ],
+  "hosting": {
+    "site": "najmy",
+    "public": "frontend/dist",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "headers" : [ {
+      "source": "*",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin", "value": "" },
+        { "key": "X-Frame-Options", "value": "deny" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-XSS-Protection", "value": "1; mode=block" },
+        { "key": "Content-Security-Policy", "value": "your-csp-policy" },
+        { "key": "Referrer-Policy", "value": "same-origin" },
+        { "key": "Permissions-Policy", "value": "your-permissions-policy" }
+      ]
+    }]
+  }
+}

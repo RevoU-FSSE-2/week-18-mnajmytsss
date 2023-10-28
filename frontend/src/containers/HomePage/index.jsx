@@ -15,13 +15,13 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import './index.css'
 import CustomButton from '../../components/Button';
-import { API_BASE_URL, getHeaders, fetchLists } from '../../function'
+import { API_BASE_URL, getHeaders, fetchLists, showAlert } from '../../function'
 
 const CombinedComponent = () => {
   const [cards, setCards] = useState([]);
   const [openAddModal, setOpenAddModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
-const [editingIndex, setEditingIndex] = useState(null);
+  const [editingIndex, setEditingIndex] = useState(null);
   const [newTask, setNewTask] = useState('');
   const [priority, setPriority] = useState('');
   const [status, setStatus] = useState('');
@@ -72,20 +72,26 @@ const [editingIndex, setEditingIndex] = useState(null);
         status: typeof newCard.status === 'string' ? newCard.status.toLowerCase() : newCard.status,
         dueDate: newCard.dueDate, 
       }, getHeaders());
-
+      showAlert('success', 'Task Successfully Added', '')
       console.log('Response:', response.data);
     } catch (error) {
       console.error('Error creating list:', error.response ? error.response.data : error.message);
     }
   };
 
-  const handleEdit = (index) => {
-    const cardToEdit = cards[index];
-    setNewTask(cardToEdit.title);
-  setPriority(cardToEdit.priority);
-  setStatus(cardToEdit.status);
-  setEditingIndex(index);
-    setOpenEditModal(true);
+  const handleEdit = (cardId) => {
+    const index = cards.findIndex((card) => card.id === cardId);
+  
+    if (index !== -1) {
+      const cardToEdit = cards[index];
+      setNewTask(cardToEdit.title);
+      setPriority(cardToEdit.priority);
+      setStatus(cardToEdit.status);
+      setEditingIndex(index);
+      setOpenEditModal(true);
+    } else {
+      console.error(`Card with id ${cardId} not found.`);
+    }
   };
 
   const handleEditModalClose = () => {
@@ -97,33 +103,34 @@ const [editingIndex, setEditingIndex] = useState(null);
   };
 
   const handleEditSubmit = async () => {
-    const editedCard = { ...cards[editingIndex] };
-    editedCard.title = newTask;
-    editedCard.priority = priority;
-    editedCard.status = status;
-
-    const updatedCards = [...cards];
-    updatedCards[editingIndex] = editedCard;
-    setCards(updatedCards);
-
-    try {
-      // Update the task on the server if needed
-      const response = await axios.put(
-        `${API_BASE_URL}/api/v1/lists/${editedCard.id}`,
-        {
-          list: editedCard.title,
-        property: editedCard.priority,
-        status: typeof editedCard.status === 'string' ? editedCard.status.toLowerCase() : editedCard.status,
-      },
-        getHeaders()
-      );
-
-      console.log('Response:', response.data);
-    } catch (error) {
-      console.error('Error updating task:', error.response ? error.response.data : error.message);
-    }
-
-    handleEditModalClose();
+    if (editingIndex !== null) {
+      const editedCard = { ...cards[editingIndex] };
+      editedCard.title = newTask;
+      editedCard.priority = priority;
+      editedCard.status = status;
+  
+      const updatedCards = [...cards];
+      updatedCards[editingIndex] = editedCard;
+      setCards(updatedCards);
+  
+      try {
+        const response = await axios.put(
+          `${API_BASE_URL}/api/v1/lists/${editedCard.id}`,
+          {
+            list: editedCard.title,
+            property: editedCard.priority,
+            status: typeof editedCard.status === 'string' ? editedCard.status.toLowerCase() : editedCard.status,
+          },
+          getHeaders()
+        );
+        showAlert('success', 'Task Successfully Edited', '')
+        console.log('Response:', response.data);
+      } catch (error) {
+        console.error('Error updating task:', error.response ? error.response.data : error.message);
+      }
+  
+      handleEditModalClose();
+    } 
   };
 
 
@@ -144,6 +151,7 @@ const [editingIndex, setEditingIndex] = useState(null);
       console.log('Response:', response.data);
 
       setCards((prevCards) => prevCards.filter((card) => card.id !== cardId));
+      showAlert('success', 'Task Successfully Deleted', '')
     } catch (error) {
       console.error('Error deleting card:', error.response ? error.response.data : error.message);
     }
@@ -191,6 +199,7 @@ const [editingIndex, setEditingIndex] = useState(null);
               fullWidth
               value={newTask}
               onChange={(e) => setNewTask(e.target.value)}
+              autoCapitalize="none"
             />
             <FormControl fullWidth sx={{ mt: 2 }}>
               <InputLabel id="priority-label">Priority</InputLabel>
@@ -226,6 +235,7 @@ const [editingIndex, setEditingIndex] = useState(null);
                 label="Due Date"
                 type="date"
                 value={dueDate}
+                autoCapitalize="none"
                 onChange={(e) => handleInputChange({ target: { name: 'dueDate', value: e.target.value } })}
                 sx={{ mt: 2 }}
                 InputLabelProps={{
@@ -301,11 +311,11 @@ const [editingIndex, setEditingIndex] = useState(null);
           justifyContent: 'center',
           alignItems: 'center',
           padding: '10px',
-          flexGrow: '2',
+          flexGrow: '4',
           height: '80px'
         }}>
         <CardContent>
-            <Typography variant="h4">Hasil seminggu begadang non stop</Typography>
+            <Typography variant="h3">zihan fauzi januart</Typography>
           </CardContent>
       </Card>
       <Card sx={{
@@ -331,11 +341,11 @@ const [editingIndex, setEditingIndex] = useState(null);
       </div>
       <div className='bottomSurface'>
       <Card className='card' sx={{ minWidth: 285, margin: '10px', flexGrow: '2' }} title>
-        <CardContent>
-          <Typography variant="p">to do</Typography>
-          <hr />
-          {todoTasks.map((card, index) => (
-            <Card className='biji' key={card.id} sx={{ minWidth: 285, margin: '10px', flexGrow: '2' }}>
+        <CardContent sx={{display: 'flex', alignItems: 'center', flexDirection: 'column', fontSize: '10px'}}>
+          <Typography variant="p" sx={{fontSize: '15px', borderBox: '1px'}}>to do</Typography>
+          <br />
+          {todoTasks.map((card) => (
+            <Card className='biji' key={card.id} sx={{ minWidth: 285, margin: '10px', flexGrow: '2', color: 'white' }}>
               <CardContent className='cardLists'>
                 <Typography variant="p">Task : {card.title}</Typography>
                 <Typography variant="p" value={priority} onChange={(e) => setPriority(e.target.value)}>Status : {card.status}</Typography>
@@ -346,22 +356,20 @@ const [editingIndex, setEditingIndex] = useState(null);
                 <Typography variant="p" >Created at : {card.date}</Typography>
               </CardContent>
               <div className='EEtButton'>
-                <Button variant='soft' onClick={() => handleEdit(index)}>Edit</Button>
+                <Button variant='soft' onClick={() => handleEdit(card.id)}>Edit</Button>
                 <Button variant='soft' onClick={() => handleDeleteTask(card.id)}>Delete</Button>
               </div>
             </Card>
           ))}
         </CardContent>
       </Card>
-
-      <div className='bottomSurface'>
       <Card className='card' sx={{ minWidth: 285, margin: '10px', flexGrow: '2' }} title>
-        <CardContent>
-          <Typography variant="p">In Progress</Typography>
-          <hr />
+        <CardContent sx={{display: 'flex', alignItems: 'center', flexDirection: 'column', fontSize: '10px'}}>
+          <Typography variant="p" sx={{fontSize: '15px', borderBox: '1px'}} >In Progress</Typography>
+          <br />
           <div className='huntu'>
-            {inProgressTasks.map((card, index) => (
-              <Card className='biji' key={card.id} sx={{ minWidth: 285, margin: '10px', flexGrow: '2' }}>
+            {inProgressTasks.map((card) => (
+              <Card className='biji' key={card.id} sx={{ minWidth: 285, margin: '10px', flexGrow: '2', color: 'white' }}>
                 <CardContent className='cardLists'>
                   <Typography variant="p">Task : {card.title}</Typography>
                   <Typography variant="p" value={priority} onChange={(e) => setPriority(e.target.value)}>Status : {card.status}</Typography>
@@ -372,7 +380,7 @@ const [editingIndex, setEditingIndex] = useState(null);
                   <Typography variant="p" >Created at : {card.date}</Typography>
                 </CardContent>
                 <div className='EEtButton'>
-                  <Button variant='soft' onClick={() => handleEdit(index)}>Edit</Button>
+                  <Button variant='soft' onClick={() => handleEdit(card.id)}>Edit</Button>
                   <Button variant='soft' onClick={() => handleDeleteTask(card.id)}>Delete</Button>
                 </div>
               </Card>
@@ -380,14 +388,12 @@ const [editingIndex, setEditingIndex] = useState(null);
           </div>
         </CardContent>
       </Card>
-        </div>
-        <div className='bottomSurface'>
         <Card className='card' sx={{ minWidth: 285, margin: '10px', flexGrow: '2' }} title>
-        <CardContent>
-          <Typography variant="p">Done</Typography>
-          <hr />
-          {doneTasks.map((card, index) => (
-            <Card className='biji' key={card.id} sx={{ minWidth: 285, margin: '10px', flexGrow: '2' }}>
+        <CardContent sx={{display: 'flex', alignItems: 'center', flexDirection: 'column', fontSize: '10px'}}>
+          <Typography variant="p" sx={{fontSize: '15px', borderBox: '1px'}} >Done</Typography>
+          <br />
+          {doneTasks.map((card) => (
+            <Card className='biji' key={card.id} sx={{ minWidth: 285, margin: '10px', flexGrow: '2', color: 'white' }}>
               <CardContent className='cardLists'>
                 <Typography variant="p">Task : {card.title}</Typography>
                 <Typography variant="p" value={priority} onChange={(e) => setPriority(e.target.value)}>Status : {card.status}</Typography>
@@ -398,14 +404,13 @@ const [editingIndex, setEditingIndex] = useState(null);
                 <Typography variant="p" >Created at : {card.date}</Typography>
               </CardContent>
               <div className='EEtButton'>
-                <Button variant='soft' onClick={() => handleEdit(index)}>Edit</Button>
+                <Button variant='soft' onClick={() => handleEdit(card.id)}>Edit</Button>
                 <Button variant='soft' onClick={() => handleDeleteTask(card.id)}>Delete</Button>
               </div>
             </Card>
           ))}
         </CardContent>
       </Card>
-        </div>
     </div>
     </div>
   );

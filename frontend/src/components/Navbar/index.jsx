@@ -10,7 +10,7 @@ import AdbIcon from '@mui/icons-material/Adb';
 import logo from '../../assets/logo.png'
 import './index.css'
 
-const pages = ['Feautures', 'Solutions', 'Plans'];
+const pages = ['project milestone 3 mnajmytsss'];
 
 function NavBar() {
   const [ setAnchorElNav] = React.useState(null);

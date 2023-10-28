@@ -39,6 +39,7 @@ const LoginForm = () => {
   };
 
   return (
+    <div style={{ paddingLeft: '10rem'}}>
     <Card style={{ textAlign: 'center', margin: '20px auto', padding: '30px', maxWidth: '400px' }}>
       <Typography  variant="h4" gutterBottom>
         Login
@@ -62,15 +63,16 @@ const LoginForm = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <CustomButton onClick={handleLogin} style={{marginTop: '20px', width: '100px', fontSize: '1.5rem'}} >
+      <CustomButton onClick={handleLogin} style={{marginTop: '20px', fontSize: '1.3rem', width: '7.5rem'}} >
         Login
       </CustomButton>
-      <Typography style={{ marginTop: '10px', paddingTop: '10px' }}>
+      <Typography style={{ marginTop: '10px', paddingTop: '10px', fontSize: '13px' }}>
         <Link href="#" onClick={handleRegisterLinkClick}>
           Register here if you dont have an account
         </Link>
       </Typography>
     </Card>
+    </div>
   );
 };
 

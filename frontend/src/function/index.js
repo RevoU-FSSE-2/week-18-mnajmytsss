@@ -1,7 +1,7 @@
 import Swal from "sweetalert2"
 import axios from 'axios';
 
-export const API_BASE_URL = 'http://localhost:5432'
+export const API_BASE_URL = 'https://us-central1-revou-batch-june.cloudfunctions.net/project_milestone_mnajmytsss'
 
 export const getHeaders = () => {
     const token = localStorage.getItem('token');
@@ -30,6 +30,7 @@ try {
     if (Array.isArray(lists)) {
       const cards = lists.map((list) => ({
         id: list._id,
+        username: list.username,
         title: list.list,
         priority: list.property,
         status: list.status,

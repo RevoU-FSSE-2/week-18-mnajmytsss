@@ -3,7 +3,7 @@ const dotenv = require("dotenv");
 
 const dbConnection = async () => {
     try {
-        const client = await new MongoClient(process.env.DB_DEV).connect();
+        const client = await new MongoClient(process.env.DB_PROD).connect();
         const db = client.db('milestone');
         
         const listsCollection = db.collection('lists');

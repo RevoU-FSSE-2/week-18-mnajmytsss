@@ -19,4 +19,4 @@ app.listen(server_port, () => {
  console.log(`Running on port http://localhost:${server_port}`);
 })
 
-exports.week_17_mnajmytsss = functions.https.onRequest(app)
+exports.project_milestone_mnajmytsss = functions.https.onRequest(app)

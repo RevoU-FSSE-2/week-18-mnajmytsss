@@ -25,7 +25,7 @@ const RegisterForm = () => {
       });
       showAlert('success', 'Registration Successful!', 'You can now log in with your credentials.');
       console.log('Registration successful:', response.data);
-      navigate('/loginform');
+      navigate('/login');
     } catch (error) {
 
       if (error.response && error.response.status === 400 && error.response.data.message) {
@@ -38,6 +38,7 @@ const RegisterForm = () => {
   };
 
   return (
+    <div style={{ paddingLeft: '10rem'}}>
     <Card style={{ textAlign: 'center', margin: '20px auto', padding: '30px', maxWidth: '400px' }}>
       <Typography variant="h4" gutterBottom>
         Register
@@ -74,15 +75,16 @@ const RegisterForm = () => {
           <MenuItem value="admin">Admin</MenuItem>
         </Select>
       </FormControl>
-      <CustomButton onClick={handleRegister} style={{marginTop: '20px'}}>
+      <CustomButton onClick={handleRegister} style={{marginTop: '20px', fontSize: '1.3rem', width: '10rem'}}>
         Register
       </CustomButton>
-      <Typography style={{ marginTop: '10px', paddingTop: '10px' }}>
+      <Typography style={{ marginTop: '10px', paddingTop: '10px', fontSize: '13px' }}>
         <Link href="#" onClick={handleLoginLinkClick} target="_blank" rel="noopener">
           Login here if you already have an account
         </Link>
       </Typography>
     </Card>
+    </div>
   );
 };
 
