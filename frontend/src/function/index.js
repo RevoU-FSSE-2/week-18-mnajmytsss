@@ -1,7 +1,7 @@
 import Swal from "sweetalert2"
 import axios from 'axios';
 
-export const API_BASE_URL = 'https://us-central1-revou-batch-june.cloudfunctions.net/project_milestone_mnajmytsss'
+export const API_BASE_URL = 'http://localhost:6543'
 
 export const getHeaders = () => {
     const token = localStorage.getItem('token');

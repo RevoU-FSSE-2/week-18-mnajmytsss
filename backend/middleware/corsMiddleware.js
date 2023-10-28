@@ -26,7 +26,7 @@ const corsOptionsDelegate = (req, callback) => {
 };
 
 const corsMiddleware = (app) => {
-    app.use(cors(corsOptionsDelegate));
+    app.use(cors());
 };
 
 module.exports = corsMiddleware;

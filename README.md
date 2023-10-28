@@ -7,3 +7,10 @@
 [functions](https://us-central1-revou-batch-june.cloudfunctions.net/project_milestone_mnajmytsss)
 
 readme.md will be updated soon insyaAllah 
+
+![Local Image](./frontend/src/assets/1.png)
+![Local Image](./frontend/src/assets/2.png)
+![Local Image](./frontend/src/assets/3.png)
+![Local Image](./frontend/src/assets/4.png)
+![Local Image](./frontend/src/assets/5.png)
+![Local Image](./frontend/src/assets/6.png)

@@ -315,7 +315,7 @@ const CombinedComponent = () => {
           height: '80px'
         }}>
         <CardContent>
-            <Typography variant="h3">zihan fauzi januart</Typography>
+            <Typography variant="h3">Zihan Fauzi Januart</Typography>
           </CardContent>
       </Card>
       <Card sx={{
@@ -365,7 +365,7 @@ const CombinedComponent = () => {
       </Card>
       <Card className='card' sx={{ minWidth: 285, margin: '10px', flexGrow: '2' }} title>
         <CardContent sx={{display: 'flex', alignItems: 'center', flexDirection: 'column', fontSize: '10px'}}>
-          <Typography variant="p" sx={{fontSize: '15px', borderBox: '1px'}} >In Progress</Typography>
+          <Typography variant="p" sx={{fontSize: '15px', borderBox: '1px'}} >On Progress</Typography>
           <br />
           <div className='huntu'>
             {inProgressTasks.map((card) => (
