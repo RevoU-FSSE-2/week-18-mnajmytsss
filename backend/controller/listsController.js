@@ -5,14 +5,14 @@ const jwt = require("jsonwebtoken")
 
 
 async function createList(req, res) {
-    const { list, property, status, dueDate } = req.body;
+    const { list, priority, status, dueDate } = req.body;
     const validProperties = ['high', 'medium', 'low'];
     const validStatuses = ['to do', 'on progress', 'done'];
     const authHeader = req.headers.authorization;
 
-    if (!validProperties.includes(property)) {
+    if (!validProperties.includes(priority)) {
         return res.status(400).json({
-            message: 'Invalid property value. Allowed values are high, medium, and low.',
+            message: 'Invalid priority value. Allowed values are high, medium, and low.',
             success: false,
         });
     }
@@ -32,7 +32,7 @@ async function createList(req, res) {
         const newList = await req.listsCollection.insertOne({
             username: decoded.username,
             list,
-            property,
+            priority,
             status,
             dueDate, 
             date: formattedDate,
@@ -86,15 +86,15 @@ async function getAllList(req, res) {
 
 
 async function updateList(req, res) {
-    const { property, status } = req.body;
+    const { priority, status } = req.body;
     const validProperties = ['high', 'medium', 'low'];
     const validStatuses = ['to do', 'on progress', 'done'];
     const authHeader = req.headers.authorization;
     const id = req.params.id; 
 
-    if (property && !validProperties.includes(property)) {
+    if (priority && !validProperties.includes(priority)) {
         return res.status(400).json({
-            message: 'Invalid property value. Allowed values are high, medium, and low.',
+            message: 'Invalid priority value. Allowed values are high, medium, and low.',
             success: false,
         });
     }
@@ -115,8 +115,8 @@ async function updateList(req, res) {
         const filter = { _id: new ObjectId(id), username: decoded.username };
         const updateFields = {};
         
-        if (property) {
-            updateFields.property = property;
+        if (priority) {
+            updateFields.priority = priority;
         }
 
         if (status) {

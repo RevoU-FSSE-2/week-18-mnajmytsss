@@ -90,6 +90,7 @@ function NavBar() {
                 </Button>
               ))}
           </Box>
+          {console.log("Token:", token)}
           {token ? (
             <CustomButton onClick={handleSignOut}>Sign Out</CustomButton>) : 
           (<CustomButton href={'/register'}>Sign Up</CustomButton>

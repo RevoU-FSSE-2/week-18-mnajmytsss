@@ -30,7 +30,7 @@ const LoginForm = () => {
       console.error('Login error: Token or user data is missing in the response');
       showAlert('error', 'Login Failed', 'Token or user data is missing in the response');
     } console.log('Login successful:', response.data);
-      showAlert('success', 'Successfully loged ini', '');
+      showAlert('success', 'Successfully loged in', '');
       navigate('/home'); 
     } catch (error) {
       console.error('Login error:', error.message);

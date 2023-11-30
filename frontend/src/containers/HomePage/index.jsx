@@ -61,14 +61,16 @@ const CombinedComponent = () => {
       lastTaskTitle: newTask,
       lastTaskCreatedAt: date,
     };
+    console.log(newCard)
+    console.log(newTask)
 
     setCards((prevCards) => [...prevCards, newCard]);
     handleCloseModal();
 
     try {
       const response = await axios.post(`${API_BASE_URL}/api/v1/lists`, {
-        list: newCard.title,
-        property: newCard.priority,
+        title: newCard.title,
+        priority: newCard.priority,
         status: typeof newCard.status === 'string' ? newCard.status.toLowerCase() : newCard.status,
         dueDate: newCard.dueDate, 
       }, getHeaders());
@@ -118,7 +120,7 @@ const CombinedComponent = () => {
           `${API_BASE_URL}/api/v1/lists/${editedCard.id}`,
           {
             list: editedCard.title,
-            property: editedCard.priority,
+            priority: editedCard.priority,
             status: typeof editedCard.status === 'string' ? editedCard.status.toLowerCase() : editedCard.status,
           },
           getHeaders()
@@ -210,9 +212,9 @@ const CombinedComponent = () => {
                 label="Priority"
                 onChange={(e) => setPriority(e.target.value)}
               >
-                <MenuItem value="high">High</MenuItem>
-                <MenuItem value="medium">Medium</MenuItem>
-                <MenuItem value="low">Low</MenuItem>
+                <MenuItem value="high">high</MenuItem>
+                <MenuItem value="medium">medium</MenuItem>
+                <MenuItem value="low">low</MenuItem>
               </Select>
             </FormControl>
             <FormControl fullWidth sx={{ mt: 2 }}>
@@ -224,9 +226,9 @@ const CombinedComponent = () => {
                   label="Status"
                   onChange={(e) => setStatus(e.target.value)}
                 >
-                  <MenuItem value="to do">To Do</MenuItem>
-                  <MenuItem value="on progress">On Progress</MenuItem>
-                  <MenuItem value="done">Done</MenuItem>
+                  <MenuItem value="to do">to do</MenuItem>
+                  <MenuItem value="on progress">on progress</MenuItem>
+                  <MenuItem value="done">done</MenuItem>
                 </Select>
               </FormControl>
               <TextField
