@@ -317,7 +317,7 @@ const CombinedComponent = () => {
           height: '80px'
         }}>
         <CardContent>
-            <Typography variant="h3">Zihan Fauzi Januart</Typography>
+            <Typography variant="h3">HEHE</Typography>
           </CardContent>
       </Card>
       <Card sx={{
